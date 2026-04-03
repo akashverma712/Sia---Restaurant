@@ -4,15 +4,15 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useMemo } from "react";
 
 const poolImages = [
-  { id: 1, image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef", span: "row-span-2" },
-  { id: 2, image: "https://images.unsplash.com/photo-1576675784201-0e142b423952", span: "col-span-2" },
-  { id: 3, image: "https://images.unsplash.com/photo-1519824145371-296894a0daa9" },
-  { id: 4, image: "https://images.unsplash.com/photo-1560347876-aeef00ee58a1", span: "row-span-2 col-span-2" },
-  { id: 5, image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba" },
-  { id: 6, image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836", span: "row-span-2" },
-  { id: 7, image: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
-  { id: 8, image: "https://images.unsplash.com/photo-1533777324565-a040eb52facd", span: "col-span-2" },
-  { id: 9, image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445" },
+  { id: 1, image: "/img.png", span: "row-span-2" },
+  { id: 2, image: "/img2.png", span: "col-span-2" },
+  { id: 3, image: "/img3.png" },
+  { id: 4, image: "/img7.png", span: "row-span-2 col-span-2" },
+  { id: 5, image: "/img5.png"},
+  { id: 6, image: "/img6.png", span: "row-span-2" },
+  { id: 7, image: "/img4.png" },
+  { id: 8, image: "/img8.png", span: "col-span-2" },
+  { id: 9, image: "/img9.png" },
 ];
 
 const PoolSection = () => {
@@ -56,7 +56,7 @@ const PoolSection = () => {
           </h2>
 
           <p className="text-gray-400 max-w-md text-base md:text-lg leading-relaxed">
-            Dhanbad’s most exclusive open-air experience — sunset cocktails,
+            Dhanbad’s most exclusive open-air experience — sunset vibes,
             curated music, and a poolside vibe crafted for indulgence.
           </p>
         </div>
@@ -93,7 +93,7 @@ const PoolSection = () => {
                     alt=""
                     className="
                       w-full h-full object-cover
-                      grayscale hover:grayscale-0
+                   
                       hover:scale-105
                       transition duration-700 ease-out
                     "

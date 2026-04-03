@@ -19,6 +19,10 @@ const Navbar = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "auto";
+  }, [open]);
+
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setOpen(false);
@@ -33,105 +37,129 @@ const Navbar = () => {
           transition-all duration-700
           ${
             isScrolled
-              ? "bg-black/90 backdrop-blur-xl border-b border-white/10 py-4"
-              : "bg-transparent py-8"
+              ? "bg-black/85 backdrop-blur-2xl border-b border-white/10 py-3 shadow-[0_15px_40px_rgba(0,0,0,0.6)]"
+              : "bg-transparent py-6"
           }
         `}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* LOGO ONLY */}
-          <div
-            onClick={() => scrollTo("home")}
-            className="cursor-pointer group"
-          >
-            <img
-              src="/sia.png"
-              alt="SIA Restaurant"
-              className="
-                h-14 md:h-16 w-auto
-                transition-transform duration-500
-                group-hover:scale-105
-              "
-            />
+        {/* cinematic top light */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-transparent pointer-events-none" />
+
+        <div className="relative w-full flex items-center justify-between">
+          
+          {/* LEFT LOGO (more left now) */}
+          <div className="pl-4 md:pl-8">
+            <div
+              onClick={() => scrollTo("home")}
+              className="cursor-pointer group relative"
+            >
+              <img
+                src="/sia.png"
+                alt="SIA Restaurant"
+                className="h-14 md:h-16 w-auto transition duration-500 group-hover:scale-110"
+              />
+
+              {/* glow */}
+              <div className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-40 transition bg-[#c5a059]" />
+            </div>
           </div>
 
-          {/* DESKTOP LINKS */}
-          <div className="hidden md:flex items-center gap-14">
+          {/* CENTER NAV LINKS */}
+          <div className="hidden md:flex items-center gap-14 absolute left-1/2 -translate-x-1/2">
             {links.map((item) => (
               <button
                 key={item}
                 onClick={() => scrollTo(item.toLowerCase())}
                 className="
                   group relative
-                  text-[11px] uppercase tracking-[0.3em]
-                  text-white/70 hover:text-white
-                  transition
+                  text-[11px] uppercase tracking-[0.4em]
+                  text-white/60 hover:text-white
+                  transition duration-300
                 "
               >
                 {item}
+
+                {/* underline + glow */}
                 <span
                   className="
-                    absolute left-1/2 -bottom-2 h-px w-0
+                    absolute left-1/2 -bottom-2 h-[1px] w-0
                     -translate-x-1/2
-                    bg-white
-                    transition-all duration-300
+                    bg-gradient-to-r from-transparent via-[#c5a059] to-transparent
+                    transition-all duration-500
                     group-hover:w-full
                   "
                 />
+
+                {/* subtle glow dot */}
+                <span className="absolute -bottom-3 left-1/2 w-1 h-1 bg-[#c5a059] rounded-full opacity-0 group-hover:opacity-100 -translate-x-1/2 transition" />
               </button>
             ))}
           </div>
 
-          {/* MOBILE MENU BUTTON */}
-          <button
-            onClick={() => setOpen(true)}
-            className="md:hidden text-white"
-          >
-            <Menu size={22} />
-          </button>
+          {/* RIGHT MENU BUTTON */}
+          <div className="pr-4 md:pr-8">
+            <button
+              onClick={() => setOpen(true)}
+              className="md:hidden text-white/80 hover:text-white transition"
+            >
+              <Menu size={24} />
+            </button>
+          </div>
         </div>
       </nav>
 
       {/* MOBILE MENU */}
       <div
         className={`
-          fixed inset-0 z-50 bg-black
-          transition-transform duration-700 ease-out
-          ${open ? "translate-y-0" : "-translate-y-full"}
+          fixed inset-0 z-50
+          bg-black/95 backdrop-blur-2xl
+          transition-all duration-700 ease-out
+          ${
+            open
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-110 pointer-events-none"
+          }
         `}
       >
+        {/* CLOSE */}
         <div className="absolute top-8 right-8">
           <button
             onClick={() => setOpen(false)}
-            className="text-white/70 hover:text-white transition"
+            className="text-white/70 hover:text-white transition hover:rotate-90 duration-300"
           >
-            <X size={28} />
+            <X size={30} />
           </button>
         </div>
 
+        {/* MENU ITEMS */}
         <div className="h-full flex flex-col items-center justify-center gap-12">
           {links.map((item, i) => (
             <button
               key={item}
               onClick={() => scrollTo(item.toLowerCase())}
-              style={{ transitionDelay: `${i * 80}ms` }}
+              style={{ transitionDelay: `${i * 100}ms` }}
               className="
-                text-4xl font-serif text-white
-                opacity-0 animate-[fadeUp_0.6s_ease-out_forwards]
-                hover:text-gray-300 transition
+                text-4xl md:text-5xl font-serif tracking-wide
+                text-white/90
+                opacity-0 animate-[fadeUp_0.7s_ease-out_forwards]
+                hover:text-[#c5a059] hover:scale-110
+                transition duration-300
               "
             >
               {item}
             </button>
           ))}
         </div>
+
+        {/* luxury radial glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(197,160,89,0.15),transparent_70%)] pointer-events-none" />
       </div>
 
       <style jsx>{`
         @keyframes fadeUp {
           from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
           }
           to {
             opacity: 1;
